@@ -14,4 +14,10 @@
 
 namespace rsa {
     void runExample();
+
+    int gcd(int a, int b);
+
+    double encryptMessage(double message);
+
+    double decryptMessage(double encrypted);
 }

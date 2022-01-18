@@ -38,7 +38,12 @@ void installCryptography(jsi::Runtime &rt) {
         
         int result = intArg1 * intArg2;
         
-        rsa::runExample();
+        double encrypted = rsa::encryptMessage(9);
+        double decrypted = rsa::decryptMessage(encrypted);
+        
+        
+//        cout << encrypted << endl;
+//        cout << decrypted << endl;
         
         // cast to string
 //        string argString = args[0].asString(rt).utf8(rt);
@@ -75,7 +80,33 @@ void installCryptography(jsi::Runtime &rt) {
     
     jsi::Function multiply = jsi::Function::createFromHostFunction(rt, jsi::PropNameID::forAscii(rt, "multiply"), 0, multiplyLambda);
     
+    auto encryptLambda = [](jsi::Runtime &rt, const jsi::Value &thisValue, const jsi::Value *args, size_t count) -> jsi::Value {
+        double message = args[0].asNumber();
+        
+        double encrypted = rsa::encryptMessage(message);
+        
+        cout << encrypted << endl;
+        
+        return jsi::Value(encrypted);
+    };
+    
+    jsi::Function encryptMessage = jsi::Function::createFromHostFunction(rt, jsi::PropNameID::forAscii(rt, "encryptMessage"), 0, encryptLambda);
+    
+    auto decryptLambda = [](jsi::Runtime &rt, const jsi::Value &thisValue, const jsi::Value *args, size_t count) -> jsi::Value {
+        double encrypted = args[0].asNumber();
+        
+        double decrypted = rsa::decryptMessage(encrypted);
+        
+        cout << decrypted << endl;
+        
+        return jsi::Value(decrypted);
+    };
+    
+    jsi::Function decryptMessage = jsi::Function::createFromHostFunction(rt, jsi::PropNameID::forAscii(rt, "decryptMessage"), 0, decryptLambda);
+    
     rt.global().setProperty(rt, "jsiMultiplication", move(multiply));
+    rt.global().setProperty(rt, "encryptMessage", move(encryptMessage));
+    rt.global().setProperty(rt, "decryptMessage", move(decryptMessage));
 };
 
 void cleanUpCryptography() {
