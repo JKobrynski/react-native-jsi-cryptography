@@ -1,6 +1,8 @@
 #include "react-native-jsi-cryptography.h"
-#include <iostream>
 #include "rsa.h"
+#include "sha1.h"
+#include <iostream>
+#include <string>
 
 //namespace example {
 //	int multiply(float a, float b) {
@@ -37,13 +39,6 @@ void installCryptography(jsi::Runtime &rt) {
         int intArg2 = (int)arg2;
         
         int result = intArg1 * intArg2;
-        
-        double encrypted = rsa::encryptMessage(9);
-        double decrypted = rsa::decryptMessage(encrypted);
-        
-        
-//        cout << encrypted << endl;
-//        cout << decrypted << endl;
         
         // cast to string
 //        string argString = args[0].asString(rt).utf8(rt);
@@ -104,9 +99,19 @@ void installCryptography(jsi::Runtime &rt) {
     
     jsi::Function decryptMessage = jsi::Function::createFromHostFunction(rt, jsi::PropNameID::forAscii(rt, "decryptMessage"), 0, decryptLambda);
     
+    auto sha1Lambda = [](jsi::Runtime &rt, const jsi::Value &thisValue, const jsi::Value *args, size_t count) -> jsi::Value {
+        string argString = args[0].asString(rt).utf8(rt);
+        string hashed = sha1::hash(argString);
+        
+        return jsi::Value(jsi::String::createFromUtf8(rt, hashed));
+    };
+    
+    jsi::Function sha1Host = jsi::Function::createFromHostFunction(rt, jsi::PropNameID::forAscii(rt, "sha1"), 0, sha1Lambda);
+    
     rt.global().setProperty(rt, "jsiMultiplication", move(multiply));
     rt.global().setProperty(rt, "encryptMessage", move(encryptMessage));
     rt.global().setProperty(rt, "decryptMessage", move(decryptMessage));
+    rt.global().setProperty(rt, "sha1", move(sha1Host));
 };
 
 void cleanUpCryptography() {
