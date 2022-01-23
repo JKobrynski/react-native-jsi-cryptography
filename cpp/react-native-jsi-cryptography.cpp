@@ -1,6 +1,7 @@
 #include "react-native-jsi-cryptography.h"
 #include "rsa.h"
 #include "sha1.h"
+//#include "md5.h"
 #include <iostream>
 #include <string>
 
@@ -92,7 +93,7 @@ void installCryptography(jsi::Runtime &rt) {
         
         double decrypted = rsa::decryptMessage(encrypted);
         
-        cout << decrypted << endl;
+        cout << "DECRYPTED: " << decrypted << endl;
         
         return jsi::Value(decrypted);
     };
@@ -108,10 +109,23 @@ void installCryptography(jsi::Runtime &rt) {
     
     jsi::Function sha1Host = jsi::Function::createFromHostFunction(rt, jsi::PropNameID::forAscii(rt, "sha1"), 0, sha1Lambda);
     
+    auto md5Lambda = [](jsi::Runtime &rt, const jsi::Value &thisValue, const jsi::Value *args, size_t count) -> jsi::Value {
+        string argString = args[0].asString(rt).utf8(rt);
+//        string hashed = md5::hash(argString);
+
+        cout << "ARG STRING: " << argString << endl;
+
+//        return jsi::Value(jsi::String::createFromUtf8(rt, hashed));
+        return jsi::Value(1);
+    };
+
+    jsi::Function md5Host = jsi::Function::createFromHostFunction(rt, jsi::PropNameID::forAscii(rt, "md5"), 0, md5Lambda);
+    
     rt.global().setProperty(rt, "jsiMultiplication", move(multiply));
     rt.global().setProperty(rt, "encryptMessage", move(encryptMessage));
     rt.global().setProperty(rt, "decryptMessage", move(decryptMessage));
     rt.global().setProperty(rt, "sha1", move(sha1Host));
+    rt.global().setProperty(rt, "md5", move(md5Host));
 };
 
 void cleanUpCryptography() {
