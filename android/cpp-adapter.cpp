@@ -1,8 +1,14 @@
 #include <jni.h>
-#include "example.h"
+#include "react-native-jsi-cryptography.h"
 
-extern "C"
-JNIEXPORT jint JNICALL
-Java_com_reactnativejsicryptography_JsiCryptographyModule_nativeMultiply(JNIEnv *env, jclass type, jint a, jint b) {
-    return example::multiply(a, b);
+extern "C" JNIEXPORT void JNICALL
+Java_com_reactnativejsicryptography_JsiCryptographyModule_initialize(JNIEnv *env, jclass clazz, jlong jsiPtr)
+{
+  installCryptography(*reinterpret_cast<facebook::jsi::Runtime *>(jsiPtr));
+}
+
+extern "C" JNIEXPORT void JNICALL
+Java_com_reactnativejsicryptography_JsiCryptographyModule_destruct(JNIEnv *env, jclass clazz)
+{
+  cleanUpCryptography();
 }

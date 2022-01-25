@@ -8,34 +8,37 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.module.annotations.ReactModule;
 
-@ReactModule(name = JsiCryptographyModule.NAME)
 public class JsiCryptographyModule extends ReactContextBaseJavaModule {
-    public static final String NAME = "JsiCryptography";
+    static {
+        System.loadLibrary("jsi-cryptography");
+    }
+
+    private static native void initialize(long jsiPtr, String docDir);
+    private static native void destruct();
 
     public JsiCryptographyModule(ReactApplicationContext reactContext) {
         super(reactContext);
     }
 
-    @Override
     @NonNull
+    @Override
     public String getName() {
-        return NAME;
+        return "JsiCryptography";
     }
 
-    static {
-        try {
-            // Used to load the 'native-lib' library on application startup.
-            System.loadLibrary("cpp");
-        } catch (Exception ignored) {
-        }
+    @NonNull
+    @Override
+    public void initialize() {
+        super.initialize();
+
+        JsiCryptographyModule.initialize(
+            this.getReactApplicationContext().getJavaScriptContextHolder().get(),
+            this.getReactApplicationContext().getFilesDir().getAbsolutePath()
+        );
     }
 
-    // Example method
-    // See https://reactnative.dev/docs/native-modules-android
-    @ReactMethod
-    public void multiply(int a, int b, Promise promise) {
-        promise.resolve(nativeMultiply(a, b));
+    @Override
+    public void onCatalystInstanceDestroy() {
+        JsiCryptographyModule.destruct();
     }
-
-    public static native int nativeMultiply(int a, int b);
 }
