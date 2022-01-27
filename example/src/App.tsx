@@ -17,6 +17,7 @@ export default function App() {
       <Text>sha1: {sha1('grape')}</Text>
       <Text>md5: {md5('grape')}</Text>
       <Text>sha224: {sha224('grape')}</Text>
+      <Text>sha256: {sha256('grape')}</Text>
     </View>
   );
 }
