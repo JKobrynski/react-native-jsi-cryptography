@@ -5,7 +5,7 @@
 //  Created by Julian Kobrynski on 27/01/2022.
 //
 
-#include "cryptography.h"
+#include "md5.h"
 #include <sstream>
 #include <iomanip>
 #include <fstream>
@@ -336,8 +336,8 @@ std::ostream& operator<<(std::ostream& out, MD5 md5)
 //    return md5.hexdigest();
 //}
 
-namespace cryptography {
-    std::string md5(const std::string &arg) {
+namespace md5 {
+    std::string hash(const std::string &arg) {
 //        return "md5";
         MD5 md5 = MD5(arg);
      

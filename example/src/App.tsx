@@ -12,7 +12,6 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text>Result: {jsiMultiplication(2,3)}</Text>
       <Text>Encrypted: {encryptMessage(9)}</Text>
       <Text>Decrypted: {decryptMessage(48)}</Text>
       <Text>sha1: {sha1('grape')}</Text>

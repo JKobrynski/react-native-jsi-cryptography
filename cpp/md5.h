@@ -5,8 +5,8 @@
 //  Created by Julian Kobrynski on 27/01/2022.
 //
 
-#ifndef cryptography_h
-#define cryptography_h
+#ifndef md5_h
+#define md5_h
 
 #include <iostream>
 #include <string>
@@ -66,8 +66,8 @@ private:
  
 //std::string md5(const std::string str);
 
-namespace cryptography {
-    std::string md5(const std::string &arg);
+namespace md5 {
+    std::string hash(const std::string &arg);
 }
 
-#endif /* cryptography_h */
+#endif /* md5_h */
