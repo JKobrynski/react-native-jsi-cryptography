@@ -16,7 +16,7 @@ export default function App() {
       <Text>Encrypted: {encryptMessage(9)}</Text>
       <Text>Decrypted: {decryptMessage(48)}</Text>
       <Text>sha1: {sha1('grape')}</Text>
-      <Text>Hashed: {md5('grape')}</Text>
+      <Text>md5: {md5('grape')}</Text>
     </View>
   );
 }

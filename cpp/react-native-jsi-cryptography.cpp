@@ -2,14 +2,9 @@
 #include "rsa.h"
 #include "sha1.h"
 //#include "md5.h"
+#include "cryptography.h"
 #include <iostream>
 #include <string>
-
-//namespace example {
-//	int multiply(float a, float b) {
-//		return a * b;
-//	}
-//}
 
 using namespace facebook;
 using namespace std;
@@ -111,12 +106,9 @@ void installCryptography(jsi::Runtime &rt) {
     
     auto md5Lambda = [](jsi::Runtime &rt, const jsi::Value &thisValue, const jsi::Value *args, size_t count) -> jsi::Value {
         string argString = args[0].asString(rt).utf8(rt);
-//        string hashed = md5::hash(argString);
+        string hashed = cryptography::md5(argString);
 
-        cout << "ARG STRING: " << argString << endl;
-
-//        return jsi::Value(jsi::String::createFromUtf8(rt, hashed));
-        return jsi::Value(1);
+        return jsi::Value(jsi::String::createFromUtf8(rt, hashed));
     };
 
     jsi::Function md5Host = jsi::Function::createFromHostFunction(rt, jsi::PropNameID::forAscii(rt, "md5"), 0, md5Lambda);

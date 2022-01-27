@@ -19,6 +19,8 @@ add_library(jsi-cryptography
             ../cpp/rsa.h
             ../cpp/sha1.cpp
             ../cpp/sha1.h
+            ../cpp/cryptography.cpp
+            ../cpp/cryptography.h
             cpp-adapter.cpp
 )
 
