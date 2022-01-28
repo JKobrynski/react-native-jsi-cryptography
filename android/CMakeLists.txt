@@ -25,6 +25,8 @@ add_library(jsi-cryptography
             ../cpp/sha256.h
             ../cpp/sha384.cpp
             ../cpp/sha384.h
+            ../cpp/sha512.cpp
+            ../cpp/sha512.h
             cpp-adapter.cpp
 )
 

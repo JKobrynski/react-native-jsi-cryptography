@@ -4,6 +4,7 @@
 #include "sha224.h"
 #include "sha256.h"
 #include "sha384.h"
+#include "sha512.h"
 #include <iostream>
 #include <string>
 
@@ -57,12 +58,22 @@ void installCryptography(jsi::Runtime &rt) {
     };
 
     jsi::Function sha384Host = jsi::Function::createFromHostFunction(rt, jsi::PropNameID::forAscii(rt, "sha384"), 0, sha384Lambda);
+
+    auto sha512Lambda = [](jsi::Runtime &rt, const jsi::Value &thisValue, const jsi::Value *args, size_t count) -> jsi::Value {
+        string argString = args[0].asString(rt).utf8(rt);
+        string hashed = sha512::hash(argString);
+
+        return jsi::Value(jsi::String::createFromUtf8(rt, hashed));
+    };
+
+    jsi::Function sha512Host = jsi::Function::createFromHostFunction(rt, jsi::PropNameID::forAscii(rt, "sha512"), 0, sha512Lambda);
     
     rt.global().setProperty(rt, "sha1", move(sha1Host));
     rt.global().setProperty(rt, "md5", move(md5Host));
     rt.global().setProperty(rt, "sha224", move(sha224Host));
     rt.global().setProperty(rt, "sha256", move(sha256Host));
     rt.global().setProperty(rt, "sha384", move(sha384Host));
+    rt.global().setProperty(rt, "sha512", move(sha512Host));
 };
 
 void cleanUpCryptography() {
