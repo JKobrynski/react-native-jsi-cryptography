@@ -15,8 +15,6 @@ add_library(jsi-cryptography
             ../node_modules/react-native/ReactCommon/jsi/jsi/jsi.cpp
             ../cpp/react-native-jsi-cryptography.cpp
             ../cpp/react-native-jsi-cryptography.h
-            ../cpp/rsa.cpp
-            ../cpp/rsa.h
             ../cpp/sha1.cpp
             ../cpp/sha1.h
             ../cpp/md5.cpp

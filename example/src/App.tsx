@@ -12,8 +12,6 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text>Encrypted: {encryptMessage(9)}</Text>
-      <Text>Decrypted: {decryptMessage(48)}</Text>
       <Text>sha1: {sha1('grape')}</Text>
       <Text>md5: {md5('grape')}</Text>
       <Text>sha224: {sha224('grape')}</Text>
