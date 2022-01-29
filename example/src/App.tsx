@@ -45,7 +45,7 @@ const callMethod = (method: Method, value: string): string => {
 
 export default function App() {
   const [activeMethod, setActiveMethod] = useState<Method>('sha1');
-  const [value, setValue] = useState('netguru');
+  const [value, setValue] = useState('example');
 
   const onPress = (method: Method) => setActiveMethod(method);
 

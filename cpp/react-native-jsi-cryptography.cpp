@@ -15,6 +15,11 @@ void installCryptography(jsi::Runtime &rt) {
     cout << "Install JSI bindings" << endl;
     
     auto sha1Lambda = [](jsi::Runtime &rt, const jsi::Value &thisValue, const jsi::Value *args, size_t count) -> jsi::Value {
+        if(!args[0].isString()) {
+            jsi::detail::throwJSError(rt, "[react-native-jsi-cryptography] sha1: value must be a string.");
+            return {};
+        }
+        
         string argString = args[0].asString(rt).utf8(rt);
         string hashed = sha1::hash(argString);
         
@@ -24,6 +29,11 @@ void installCryptography(jsi::Runtime &rt) {
     jsi::Function sha1Host = jsi::Function::createFromHostFunction(rt, jsi::PropNameID::forAscii(rt, "sha1"), 0, sha1Lambda);
     
     auto md5Lambda = [](jsi::Runtime &rt, const jsi::Value &thisValue, const jsi::Value *args, size_t count) -> jsi::Value {
+        if(!args[0].isString()) {
+            jsi::detail::throwJSError(rt, "[react-native-jsi-cryptography] md5: value must be a string.");
+            return {};
+        }
+        
         string argString = args[0].asString(rt).utf8(rt);
         string hashed = md5::hash(argString);
 
@@ -33,6 +43,11 @@ void installCryptography(jsi::Runtime &rt) {
     jsi::Function md5Host = jsi::Function::createFromHostFunction(rt, jsi::PropNameID::forAscii(rt, "md5"), 0, md5Lambda);
     
     auto sha224Lambda = [](jsi::Runtime &rt, const jsi::Value &thisValue, const jsi::Value *args, size_t count) -> jsi::Value {
+        if(!args[0].isString()) {
+            jsi::detail::throwJSError(rt, "[react-native-jsi-cryptography] sha224: value must be a string.");
+            return {};
+        }
+        
         string argString = args[0].asString(rt).utf8(rt);
         string hashed = sha224::hash(argString);
 
@@ -42,6 +57,11 @@ void installCryptography(jsi::Runtime &rt) {
     jsi::Function sha224Host = jsi::Function::createFromHostFunction(rt, jsi::PropNameID::forAscii(rt, "sha224"), 0, sha224Lambda);
     
     auto sha256Lambda = [](jsi::Runtime &rt, const jsi::Value &thisValue, const jsi::Value *args, size_t count) -> jsi::Value {
+        if(!args[0].isString()) {
+            jsi::detail::throwJSError(rt, "[react-native-jsi-cryptography] sha256: value must be a string.");
+            return {};
+        }
+        
         string argString = args[0].asString(rt).utf8(rt);
         string hashed = sha256::hash(argString);
 
@@ -51,6 +71,11 @@ void installCryptography(jsi::Runtime &rt) {
     jsi::Function sha256Host = jsi::Function::createFromHostFunction(rt, jsi::PropNameID::forAscii(rt, "sha256"), 0, sha256Lambda);
     
     auto sha384Lambda = [](jsi::Runtime &rt, const jsi::Value &thisValue, const jsi::Value *args, size_t count) -> jsi::Value {
+        if(!args[0].isString()) {
+            jsi::detail::throwJSError(rt, "[react-native-jsi-cryptography] sha384: value must be a string.");
+            return {};
+        }
+        
         string argString = args[0].asString(rt).utf8(rt);
         string hashed = sha384::hash(argString);
 
@@ -60,6 +85,11 @@ void installCryptography(jsi::Runtime &rt) {
     jsi::Function sha384Host = jsi::Function::createFromHostFunction(rt, jsi::PropNameID::forAscii(rt, "sha384"), 0, sha384Lambda);
 
     auto sha512Lambda = [](jsi::Runtime &rt, const jsi::Value &thisValue, const jsi::Value *args, size_t count) -> jsi::Value {
+        if(!args[0].isString()) {
+            jsi::detail::throwJSError(rt, "[react-native-jsi-cryptography] sha512: value must be a string.");
+            return {};
+        }
+        
         string argString = args[0].asString(rt).utf8(rt);
         string hashed = sha512::hash(argString);
 
