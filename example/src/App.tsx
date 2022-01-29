@@ -6,6 +6,14 @@ import {
   TouchableOpacity,
   TextInput,
 } from 'react-native';
+import {
+  md5,
+  sha1,
+  sha224,
+  sha256,
+  sha384,
+  sha512,
+} from 'react-native-jsi-cryptography';
 
 const functions = [
   'sha1',
@@ -59,6 +67,7 @@ export default function App() {
         <View style={styles.row}>
           {functions.map((item) => (
             <TouchableOpacity
+              key={item}
               onPress={() => onPress(item)}
               style={
                 activeMethod === item
@@ -67,7 +76,6 @@ export default function App() {
               }
             >
               <Text
-                key={item}
                 style={
                   activeMethod === item ? styles.activeVariant : styles.variant
                 }
